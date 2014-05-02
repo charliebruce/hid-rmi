@@ -15,7 +15,7 @@ fi
 
 echo 'ACTION!="add|change", GOTO="hid_rmi_end"' > ${UDEV_RULE}
 grep MODULE_ALIAS ${MODULE}.mod.c | \
-	sed "s/MODULE_ALIAS(\"\(hid:b.*g.*v.*p.*\)\");/DRIVER==\"${BLACKLIST_MODULE}\", ENV{MODALIAS}==\"\1\", RUN+=\"\/bin\/sh \/etc\/udev\/${LOADING_SCRIPT} ${BLACKLIST_MODULE} ${MODULE} %k\"/" | \
+	sed "s/MODULE_ALIAS(\"\(hid:b.*g.*v.*p.*\)\");/DRIVER==\"${BLACKLIST_MODULE}\", ATTRS{bInterfaceNumber}==\"00\", ENV{MODALIAS}==\"\1\", RUN+=\"\/bin\/sh \/etc\/udev\/${LOADING_SCRIPT} ${BLACKLIST_MODULE} ${MODULE} %k\"/" | \
 	grep -v MODULE_ALIAS | \
 	sort \
 		>> ${UDEV_RULE}
