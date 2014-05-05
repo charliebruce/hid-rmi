@@ -424,7 +424,8 @@ static int rmi_raw_event(struct hid_device *hdev,
 	case RMI_ATTN_REPORT_ID:
 		return rmi_input_event(hdev, data, size);
 	case RMI_MOUSE_REPORT_ID:
-		rmi_schedule_reset(hdev);
+		if (!data[1])
+			rmi_schedule_reset(hdev);
 		break;
 	}
 
