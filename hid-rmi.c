@@ -379,6 +379,15 @@ static int rmi_input_event(struct hid_device *hdev, u8 *data, int size)
 	irq_mask |= hdata->f11.irq_mask;
 	irq_mask |= hdata->f30.irq_mask;
 
+	if (!(data[1] & irq_mask))
+		/*
+		 * No intr sources which are supported by this
+		 * driver were found. Return 0 and let the report
+		 * go to hidraw in case there is a userspace tool
+		 * handling these intr sources.
+		 */
+		return 0;
+
 	if (data[1] & ~irq_mask)
 		hid_warn(hdev, "unknown intr source:%02lx %s:%d\n",
 			data[1] & ~irq_mask, __FILE__, __LINE__);
@@ -403,7 +412,7 @@ static int rmi_read_data_event(struct hid_device *hdev, u8 *data, int size)
 	struct rmi_data *hdata = hid_get_drvdata(hdev);
 
 	if (!test_bit(RMI_READ_REQUEST_PENDING, &hdata->flags)) {
-		hid_err(hdev, "no read request pending\n");
+		hid_info(hdev, "no read request pending\n");
 		return 0;
 	}
 
