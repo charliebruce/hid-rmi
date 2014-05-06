@@ -432,9 +432,11 @@ static int rmi_raw_event(struct hid_device *hdev,
 		return rmi_read_data_event(hdev, data, size);
 	case RMI_ATTN_REPORT_ID:
 		return rmi_input_event(hdev, data, size);
+#if 0
 	case RMI_MOUSE_REPORT_ID:
 		if (!data[1])
 			rmi_schedule_reset(hdev);
+#endif
 		break;
 	}
 
@@ -826,6 +828,7 @@ exit:
 	hid_hw_close(hdev);
 }
 
+#if 0
 static int rmi_input_mapping(struct hid_device *hdev,
 		struct hid_input *hi, struct hid_field *field,
 		struct hid_usage *usage, unsigned long **bit, int *max)
@@ -833,6 +836,7 @@ static int rmi_input_mapping(struct hid_device *hdev,
 	/* we want to make HID ignore the advertised HID collection */
 	return -1;
 }
+#endif
 
 static int rmi_probe(struct hid_device *hdev, const struct hid_device_id *id)
 {
@@ -914,7 +918,7 @@ static struct hid_driver rmi_driver = {
 	.probe			= rmi_probe,
 	.remove			= rmi_remove,
 	.raw_event		= rmi_raw_event,
-	.input_mapping		= rmi_input_mapping,
+	//.input_mapping		= rmi_input_mapping,
 	.input_configured	= rmi_input_configured,
 #ifdef CONFIG_PM
 	.resume			= rmi_post_resume,
