@@ -19,7 +19,9 @@
 #define GENMASK(h, l)           (((U32_C(1) << ((h) - (l) + 1)) - 1) << (l))
 #endif
 
-#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 15, 0)
+/* It seems that fairly recently, Ubuntu added these functions to their headers in include/linux/hid.h 
+or something else happened? */
+#if 0
 
 static inline int hid_hw_raw_request(struct hid_device *hdev,
 				  unsigned char reportnum, __u8 *buf,
