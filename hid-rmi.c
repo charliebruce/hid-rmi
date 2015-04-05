@@ -3,7 +3,7 @@
  *  Copyright (c) 2013 Synaptics Incorporated
  *  Copyright (c) 2014 Benjamin Tissoires <benjamin.tissoires@gmail.com>
  *  Copyright (c) 2014 Red Hat, Inc
- *
+ *  Copyright (c) 2015 Charlie Bruce
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
  * Software Foundation; either version 2 of the License, or (at your option)
@@ -766,7 +766,7 @@ static void rmi_input_configured(struct hid_device *hdev, struct hid_input *hi)
 
 	data->input = input;
 
-	dev_err(hdev, "Opening low level driver\n");
+	hid_info(hdev, "Opening low level driver\n");
 	ret = hid_hw_open(hdev);
 	if (ret)
 		return;
@@ -817,6 +817,8 @@ static void rmi_input_configured(struct hid_device *hdev, struct hid_input *hi)
 		if (data->button_count == 1)
 			__set_bit(INPUT_PROP_BUTTONPAD, input->propbit);
 	}
+
+	hid_info(hdev, "Got data about trackpad: %i buttons, supports %i fingers.", data->button_count, data->max_fingers);
 
 	set_bit(RMI_STARTED, &data->flags);
 
@@ -923,6 +925,6 @@ static struct hid_driver rmi_driver = {
 
 module_hid_driver(rmi_driver);
 
-MODULE_AUTHOR("Andrew Duggan <aduggan@synaptics.com>");
+MODULE_AUTHOR("Andrew Duggan <aduggan@synaptics.com>, Charlie Bruce <charliebruce@gmail.com>");
 MODULE_DESCRIPTION("RMI HID driver for RB");
 MODULE_LICENSE("GPL");
