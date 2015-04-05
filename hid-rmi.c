@@ -766,7 +766,7 @@ static void rmi_input_configured(struct hid_device *hdev, struct hid_input *hi)
 
 	data->input = input;
 
-	hid_dbg(hdev, "Opening low level driver\n");
+	dev_err(hdev, "Opening low level driver\n");
 	ret = hid_hw_open(hdev);
 	if (ret)
 		return;
@@ -902,7 +902,7 @@ static void rmi_remove(struct hid_device *hdev)
 
 static const struct hid_device_id rmi_id[] = {
 	{ HID_I2C_DEVICE(USB_VENDOR_ID_SYNAPTICS, HID_ANY_ID) },
-	{ HID_USB_DEVICE(USB_VENDOR_ID_SYNAPTICS, HID_ANY_ID) },
+	{ HID_USB_DEVICE(USB_VENDOR_ID_RAZER, USB_DEVICE_ID_RAZER_BLADE_14_TP) },
 	{ }
 };
 MODULE_DEVICE_TABLE(hid, rmi_id);
@@ -924,5 +924,5 @@ static struct hid_driver rmi_driver = {
 module_hid_driver(rmi_driver);
 
 MODULE_AUTHOR("Andrew Duggan <aduggan@synaptics.com>");
-MODULE_DESCRIPTION("RMI HID driver");
+MODULE_DESCRIPTION("RMI HID driver for RB");
 MODULE_LICENSE("GPL");

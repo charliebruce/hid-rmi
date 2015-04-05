@@ -1,5 +1,7 @@
 /*
- *  USB HID quirks support for Linux
+ *  USB HID qui
+
+ks support for Linux
  *
  *  Copyright (c) 1999 Andreas Gal
  *  Copyright (c) 2000-2005 Vojtech Pavlik <vojtech@suse.cz>
@@ -734,6 +736,9 @@
 #define USB_DEVICE_ID_QUANTA_OPTICAL_TOUCH		0x3000
 #define USB_DEVICE_ID_QUANTA_OPTICAL_TOUCH_3001		0x3001
 #define USB_DEVICE_ID_QUANTA_OPTICAL_TOUCH_3008		0x3008
+
+#define USB_VENDOR_ID_RAZER		0x1532
+#define USB_DEVICE_ID_RAZER_BLADE_14_TP	0x011D
 
 #define USB_VENDOR_ID_REALTEK		0x0bda
 #define USB_DEVICE_ID_REALTEK_READER	0x0152
